@@ -43,7 +43,7 @@ export default function Dashboard() {
   const loadData = async () => {
     if (user) {
       try {
-        // Load subscriptions
+        // Load  subscriptions
         const subsResponse = await api.get(`/subscriptions`);
         const subs = subsResponse.data.data;
         setSubscriptions(subs);
