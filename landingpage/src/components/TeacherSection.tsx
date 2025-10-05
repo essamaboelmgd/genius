@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Award, BookOpen, Users, TrendingUp } from "lucide-react";
-import teacherHero from "../../public/teacherHero2.jpg";
+import teacherHero from "../../public/TeacherHero2.jpg";
 
 
 const achievements = [
