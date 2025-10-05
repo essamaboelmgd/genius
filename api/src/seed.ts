@@ -165,7 +165,7 @@ const seedDatabase = async () => {
     
     // Create exams
     const createdExams = await Exam.create(exams);
-    console.log('Exams created:', createdExons.length);
+    console.log('Exams created:', createdExams.length);
     
     // Update assignments with course and lesson IDs
     assignments[0].courseId = createdCourses[0]._id;
