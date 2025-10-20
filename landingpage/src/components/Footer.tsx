@@ -25,7 +25,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold mb-4 text-accent"> مستر محمد الهواري</h3>
+            <h3 className="text-2xl font-bold mb-4 text-accent">أكاديمية الرياضيات</h3>
             <p className="text-white/80 leading-relaxed">
               منصة تعليمية متخصصة في تدريس الرياضيات لجميع المراحل الدراسية
               بأسلوب مبسط وممتع يساعد الطلاب على التفوق والنجاح.
@@ -83,7 +83,7 @@ const Footer = () => {
           className="border-t border-white/20 pt-8 text-center"
         >
           <p className="text-white/70">
-            © 2025 Genius. جميع الحقوق محفوظة.
+            © 2025 أكاديمية الرياضيات. جميع الحقوق محفوظة.
           </p>
         </motion.div>
       </div>

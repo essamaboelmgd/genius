@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Menu, X, GraduationCap } from "lucide-react";
-import Logo from "/logo3.png";
+import Logo from "../../public/logo3.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,7 +60,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <img src="/logo3.png" alt="" className="w-36 h-36" />
+            <img src="../../public/logo3.png" alt="" className="w-36 h-36" />
           </div>
 
           {/* Mobile Menu Button */}

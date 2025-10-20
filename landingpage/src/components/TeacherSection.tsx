@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Award, BookOpen, Users, TrendingUp } from "lucide-react";
-import teacherHero from "../../public/TeacherHero2.jpg";
+import teacherHero from "../../public/teacherHero2.jpg";
 
 
 const achievements = [
   {
     icon: Users,
-    title: "1500+ طالب",
+    title: "500+ طالب",
     description: "طالب متفوق في جميع المراحل",
   },
   {
@@ -16,7 +16,7 @@ const achievements = [
   },
   {
     icon: Award,
-    title: "17+ سنة",
+    title: "15+ سنة",
     description: "خبرة في تدريس الرياضيات",
   },
   {
@@ -43,7 +43,7 @@ const TeacherSection = () => {
   };
 
   return (
-    <section id="about" className="py-20 bg-background">
+    <section id="about" className="py-20 bg-background overflow-x-hidden">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           {/* Teacher Image */}
@@ -78,7 +78,7 @@ const TeacherSection = () => {
             </h2>
             
             <p className="text-lg text-muted-foreground mb-6">
-              مدرس رياضيات متخصص مع خبرة تزيد عن 17 عاماً في تدريس المراحل الإعدادية والثانوية.
+              مدرس رياضيات متخصص مع خبرة تزيد عن 15 عاماً في تدريس المراحل الإعدادية والثانوية.
               أسعى دائماً لتبسيط المفاهيم الرياضية المعقدة وجعلها سهلة الفهم لجميع الطلاب.
             </p>
 

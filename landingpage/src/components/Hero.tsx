@@ -8,7 +8,7 @@ const Hero = () => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat md:bg-fixed mobile-bg"
         style={{ backgroundImage: `url(${teacherHero})` }}
       />
       
