@@ -7,12 +7,15 @@ export interface IOption {
 
 export interface IQuestion extends Document {
   examId: mongoose.Types.ObjectId; // Can be for exam or assignment
+  onModel: 'Exam' | 'Assignment'; // Added onModel field
   type: 'text' | 'image';
   content: string; // For text questions, this is the question text. For image questions, this is the image URL
   options: IOption[];
   correct: string; // ID of the correct option
   explanation: string;
   order: number;
+  // Added marks field
+  marks: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -58,6 +61,13 @@ const QuestionSchema: Schema = new Schema({
   order: {
     type: Number,
     required: true
+  },
+  // Added marks field
+  marks: {
+    type: Number,
+    required: true,
+    min: 0,
+    default: 1
   }
 }, {
   timestamps: true

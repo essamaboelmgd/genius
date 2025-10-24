@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
+import EducationalLevel from '../models/EducationalLevel'; // Added import
 import { AppError } from '../middleware/errorHandler';
 
 // Generate JWT token
@@ -13,7 +14,7 @@ const generateToken = (id: string): string => {
 // Register user
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, phone, guardianPhone, educationalLevel, gender, year, password } = req.body;
+    const { name, phone, guardianPhone, educationalLevel, gender, password } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ phone });
@@ -32,10 +33,12 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       guardianPhone,
       educationalLevel,
       gender,
-      year,
       password,
       role: 'student'
     });
+
+    // Populate educational level
+    await user.populate('educationalLevel');
 
     // Generate token
     const token = generateToken(user._id.toString());
@@ -52,7 +55,6 @@ export const register = async (req: Request, res: Response): Promise<void> => {
           guardianPhone: user.guardianPhone,
           educationalLevel: user.educationalLevel,
           gender: user.gender,
-          year: user.year,
           role: user.role
         }
       }
@@ -97,6 +99,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    // Populate educational level
+    await user.populate('educationalLevel');
+
     // Generate token
     const token = generateToken(user._id.toString());
 
@@ -112,7 +117,6 @@ export const login = async (req: Request, res: Response): Promise<void> => {
           guardianPhone: user.guardianPhone,
           educationalLevel: user.educationalLevel,
           gender: user.gender,
-          year: user.year,
           role: user.role
         }
       }
@@ -128,10 +132,13 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 // Get current user
 export const getCurrentUser = async (req: Request, res: Response): Promise<void> => {
   try {
+    // Populate educational level for current user
+    const userWithLevel = await User.findById(req.user._id).populate('educationalLevel');
+    
     res.status(200).json({
       status: 'success',
       data: {
-        user: req.user
+        user: userWithLevel
       }
     });
   } catch (error: any) {

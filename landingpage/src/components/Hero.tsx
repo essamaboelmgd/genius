@@ -4,6 +4,9 @@ import { ArrowLeft, Play } from "lucide-react";
 import teacherHero from "../../public/TeacherHero.jpg";
 
 const Hero = () => {
+  // Get login URL from environment variables
+  const loginUrl = import.meta.env.VITE_LOGIN_URL || "/login";
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -76,6 +79,7 @@ const Hero = () => {
             <Button
               size="lg"
               className="bg-accent text-foreground hover:bg-accent/90 text-lg px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+              onClick={() => window.location.href = loginUrl}
             >
               ابدأ التعلم الآن
               <ArrowLeft className="mr-2" size={20} />

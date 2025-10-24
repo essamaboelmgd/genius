@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { IEducationalLevel } from './EducationalLevel';
 
 export interface IUser extends Document {
   name: string;
   phone: string;
   guardianPhone: string;
-  educationalLevel: string;
+  educationalLevel: IEducationalLevel['_id'];
   gender: 'male' | 'female';
-  year: string;
   password: string;
   role: 'student' | 'teacher' | 'admin' | 'assistant';
   permissions: string[];
@@ -34,19 +34,14 @@ const UserSchema: Schema = new Schema({
     trim: true
   },
   educationalLevel: {
-    type: String,
-    required: true,
-    trim: true
+    type: Schema.Types.ObjectId,
+    ref: 'EducationalLevel',
+    required: true
   },
   gender: {
     type: String,
     required: true,
     enum: ['male', 'female']
-  },
-  year: {
-    type: String,
-    required: true,
-    trim: true
   },
   password: {
     type: String,

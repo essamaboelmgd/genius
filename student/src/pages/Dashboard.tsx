@@ -29,11 +29,19 @@ interface Subscription {
   vodafoneReceipt?: string;
 }
 
+interface Exam {
+  _id: string;
+  title: string;
+  isActive: boolean;
+  // ... other exam properties
+}
+
 export default function Dashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [subscribedCourses, setSubscribedCourses] = useState<Course[]>([]);
+  const [activeExams, setActiveExams] = useState<Exam[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,7 +51,7 @@ export default function Dashboard() {
   const loadData = async () => {
     if (user) {
       try {
-        // Load  subscriptions
+        // Load subscriptions
         const subsResponse = await api.get(`/subscriptions`);
         const subs = subsResponse.data.data;
         setSubscriptions(subs);
@@ -58,6 +66,11 @@ export default function Dashboard() {
         );
         
         setSubscribedCourses(subCourses);
+
+        // Load active exams
+        const examsResponse = await api.get(`/exams?isActive=true`);
+        const exams = examsResponse.data.data;
+        setActiveExams(exams);
       } catch (error) {
         console.error('Error loading dashboard data:', error);
       }
@@ -76,7 +89,7 @@ export default function Dashboard() {
     {
       icon: FileText,
       label: 'الامتحانات النشطة',
-      value: 3,
+      value: activeExams.length,
       color: 'text-success',
     },
     {

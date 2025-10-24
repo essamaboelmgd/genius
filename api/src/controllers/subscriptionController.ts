@@ -34,6 +34,42 @@ export const getUserSubscriptions = async (req: Request, res: Response): Promise
   }
 };
 
+// Get all subscriptions with pagination (for admin)
+export const getAllSubscriptions = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { page, limit, status } = req.query;
+    
+    // Build query
+    const query: any = {};
+    if (status && status !== 'all') query.status = status;
+    
+    // Paginate results
+    const result: PaginationResult<any> = await paginate(
+      Subscription,
+      query,
+      { page: Number(page), limit: Number(limit) },
+      { subscribedAt: -1 }
+    );
+    
+    // Populate user and course details
+    const populatedData = await Subscription.populate(result.data, [
+      { path: 'userId', select: 'name email phone' },
+      { path: 'courseId', populate: { path: 'educationalLevel', select: 'nameAr' } }
+    ]);
+    
+    res.status(200).json({
+      status: 'success',
+      data: populatedData,
+      pagination: result.pagination
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message || 'Server Error'
+    });
+  }
+};
+
 // Subscribe to a course
 export const subscribeToCourse = async (req: Request, res: Response): Promise<void> => {
   try {

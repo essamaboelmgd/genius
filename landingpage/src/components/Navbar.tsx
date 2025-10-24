@@ -23,6 +23,10 @@ const Navbar = () => {
     { name: "عن المدرس", href: "#about" },
   ];
 
+  // Get URLs from environment variables
+  const loginUrl = import.meta.env.VITE_LOGIN_URL || "/login";
+  const signupUrl = import.meta.env.VITE_SIGNUP_URL || "/register";
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -37,11 +41,15 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Auth Buttons - Desktop */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="outline" size="sm" className=" text-red-400 border-white/50 hover:bg-white hover:text-primary">
-              تسجيل دخول
+            <Button variant="outline" size="sm" className=" text-red-400 border-white/50 hover:bg-white hover:text-primary" asChild>
+              <a href={loginUrl}>
+                تسجيل دخول
+              </a>
             </Button>
-            <Button size="sm" className="bg-accent text-foreground hover:bg-accent/90">
-              إنشاء حساب
+            <Button size="sm" className="bg-accent text-foreground hover:bg-accent/90" asChild>
+              <a href={signupUrl}>
+                إنشاء حساب
+              </a>
             </Button>
           </div>
 
@@ -60,7 +68,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <img src="../../public/logo3.png" alt="" className="w-36 h-36" />
+            <img src={Logo} alt="Logo" className="w-36 h-36" />
           </div>
 
           {/* Mobile Menu Button */}
@@ -92,11 +100,15 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex flex-col gap-2 mt-4">
-                <Button variant="outline" size="sm" className="border-white/50 hover:bg-white hover:text-primary bg-white">
-                  تسجيل دخول
+                <Button variant="outline" size="sm" className="border-white/50 hover:bg-white hover:text-primary bg-white" asChild>
+                  <a href={loginUrl}>
+                    تسجيل دخول
+                  </a>
                 </Button>
-                <Button size="sm" className="bg-accent text-foreground hover:bg-accent/90">
-                  إنشاء حساب
+                <Button size="sm" className="bg-accent text-foreground hover:bg-accent/90" asChild>
+                  <a href={signupUrl}>
+                    إنشاء حساب
+                  </a>
                 </Button>
               </div>
             </div>

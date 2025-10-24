@@ -1,8 +1,9 @@
 import mongoose, { Document, Schema } from 'mongoose';
+import { IEducationalLevel } from './EducationalLevel';
 
 export interface ICourse extends Document {
   title: string;
-  year: string;
+  educationalLevel: IEducationalLevel['_id']; // Changed to reference EducationalLevel
   shortDescription: string;
   fullDescription: string;
   price: number;
@@ -20,10 +21,10 @@ const CourseSchema: Schema = new Schema({
     required: true,
     trim: true
   },
-  year: {
-    type: String,
-    required: true,
-    trim: true
+  educationalLevel: {
+    type: Schema.Types.ObjectId,
+    ref: 'EducationalLevel',
+    required: true
   },
   shortDescription: {
     type: String,
@@ -64,7 +65,7 @@ const CourseSchema: Schema = new Schema({
 });
 
 // Indexes for better query performance
-CourseSchema.index({ year: 1 });
+CourseSchema.index({ educationalLevel: 1 });
 CourseSchema.index({ month: 1 });
 CourseSchema.index({ isActive: 1 });
 CourseSchema.index({ createdAt: -1 });

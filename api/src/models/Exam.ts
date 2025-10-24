@@ -32,17 +32,19 @@ const ExamSchema: Schema = new Schema({
   },
   date: {
     type: Date,
-    required: true
+    required: false // Made optional since it's not needed in the frontend
   },
   timeLimitMin: {
     type: Number,
-    required: true,
-    min: 0
+    required: false, // Made optional to allow 0 when no time limit
+    min: 0,
+    default: 0
   },
   totalMarks: {
     type: Number,
-    required: true,
-    min: 0
+    required: false, // Made optional since it will be calculated
+    min: 0,
+    default: 0
   },
   type: {
     type: String,

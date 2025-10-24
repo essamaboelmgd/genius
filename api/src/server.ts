@@ -19,6 +19,9 @@ import assignmentRoutes from './routes/assignment.routes';
 import notificationRoutes from './routes/notification.routes';
 import subscriptionRoutes from './routes/subscription.routes';
 import adminRoutes from './routes/admin.routes';
+import notesRoutes from './routes/notes.routes';
+import questionRoutes from './routes/question.routes';
+import educationalLevelRoutes from './routes/educationalLevel.routes'; // Added import
 
 // Create Express app
 const app = express();
@@ -26,7 +29,20 @@ const app = express();
 // Middleware
 app.use(helmet()); // Security headers
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:8080',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Get allowed origins from environment variable
+    const allowedOrigins = process.env.CLIENT_URL?.split(',') || ['http://localhost:8080'];
+    
+    // Check if the origin is in our allowed list
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(morgan('combined')); // Logging
@@ -45,6 +61,9 @@ app.use('/api/assignments', assignmentRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/notes', notesRoutes);
+app.use('/api/questions', questionRoutes);
+app.use('/api/educational-levels', educationalLevelRoutes); // Added route
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

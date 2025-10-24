@@ -32,17 +32,19 @@ const AssignmentSchema: Schema = new Schema({
   },
   date: {
     type: Date,
-    required: true
+    required: false // Made optional
   },
   timeLimitMin: {
     type: Number,
-    required: true,
-    min: 0
+    required: false, // Made optional
+    min: 0,
+    default: 0
   },
   totalMarks: {
     type: Number,
-    required: true,
-    min: 0
+    required: false, // Made optional
+    min: 0,
+    default: 0
   },
   type: {
     type: String,

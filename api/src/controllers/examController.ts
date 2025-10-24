@@ -119,14 +119,20 @@ export const submitExamAnswers = async (req: Request, res: Response): Promise<vo
       throw new AppError('Answers are required', 400);
     }
     
-    // Calculate score
+    // Calculate score based on individual question marks
     let score = 0;
-    const totalMarks = exam.totalMarks;
+    let totalMarks = 0;
     
+    // Calculate total marks from questions
+    for (const question of questions) {
+      totalMarks += question.marks;
+    }
+    
+    // Calculate score based on correct answers
     for (const answer of answers) {
       const question = questions.find(q => q._id.toString() === answer.questionId);
       if (question && question.correct === answer.selectedOption) {
-        score += Math.floor(totalMarks / questions.length);
+        score += question.marks;
       }
     }
     

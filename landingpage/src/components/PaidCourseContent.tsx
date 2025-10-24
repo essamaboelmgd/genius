@@ -195,9 +195,9 @@ const PaidCourseContent = () => {
                   </Button>
                   <Button
                     onClick={() => {
-                      setShowSubscriptionMessage(false);
-                      // Scroll to paid courses section
-                      document.getElementById("paid-courses")?.scrollIntoView({ behavior: "smooth" });
+                      // Redirect to login URL from environment variables
+                      const loginUrl = import.meta.env.VITE_LOGIN_URL || "/login";
+                      window.location.href = loginUrl;
                     }}
                     className="flex-1 bg-accent text-foreground hover:bg-accent/90"
                   >
